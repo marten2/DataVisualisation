@@ -19,6 +19,7 @@ De visualisatie bevat een algemene grafiek waar tussen de verschillende statisti
 
 ## Werkverdeling 
 Week 1:
+
 	Data verzamelen en ordenen:
 	1. Data scrapen van de website (Dinsdag)
 	2. data analyse(met python) (Woensdag/donderdag)
@@ -27,6 +28,7 @@ Week 1:
 	1. Eerste blok indeling HTML (vrijdag)
 
 week 2:
+
 	Ontwikkeleng Javascript voor plotjes:
 	1. ontwikkelen generiek javascript voor 1 plot(maandag/dinsdag)
 	2. ontwikkelen controller voor het switchen tussen grafieken(dinsdag/woensdag)
@@ -34,10 +36,12 @@ week 2:
 	4. linken kaart aan andere datasets(vrijdag)
 
 week 3:
+
 	HTML mooier en strakker maken(maandag)
 	Afmaken van javascript issues
 
 week 4:
+
 	Afmaken HTML
 	Verslag schrijven
 	presentatie geven
