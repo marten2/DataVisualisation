@@ -9,3 +9,7 @@ Alles van Obama is binnen (227).
 Begonnen met het bouwen van een text analyser, woord gemiddelde en totaal aantal scentences af.
 
 #######   03-06-2016   #######
+Woordanalyser bijgewerkt, pakt nu gemiddelde wordt lengte en zin lengte. 
+Begonnen met een vergelijking tussen woorden bevat in een algemene simpele woordenlijst
+Ingeladen 850 basic english woorden.
+
