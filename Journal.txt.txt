@@ -1,0 +1,11 @@
+#######   01-06-2016   #######
+Idee uitgewerkt en klaar gemaakt om te beginnen.
+Artiekelen opgezocht voor verantwoording analyse.
+Begonnen met het bouwen van de scraper
+
+#######   02-06-2016   #######
+Scraper afgebouwd en de eerste twee sets van speeches binnen gehaald.
+Alles van Obama is binnen (227).
+Begonnen met het bouwen van een text analyser, woord gemiddelde en totaal aantal scentences af.
+
+#######   03-06-2016   #######
