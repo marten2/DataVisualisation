@@ -17,13 +17,21 @@ def statistics(data):
 		if a[3] == "":
 			continue
 
-		sentences = a[3].split(".")
+		sentence_len = get_average_sentence_len(a[3])
 		word_len = get_average_word_len(a[3])
-		temp = [len(sentences), word_len]
+		temp = [sentence_len, word_len]
 		output.append([a[0], a[1], a[2], temp])
 	return output
 	# still need to add distance between words!
 
+def get_average_sentence_len(text):
+	sentences = text.split(".")
+	tot_amount = len(sentences)
+	tot_words = 0
+	for s in sentences:
+		tot_words += len(s.split(" "))
+
+	return tot_words/tot_amount
 def get_average_word_len(text):
 	sentences = text.split(".")
 	Twords = 0
@@ -34,7 +42,6 @@ def get_average_word_len(text):
 		for w in words:
 			Tchars += len(w)
 	average = Tchars/Twords
-	print Tchars, Twords, average
 	return average
 
 def outputCsv(data, filename):
@@ -46,5 +53,5 @@ def outputCsv(data, filename):
 if __name__ == "__main__":
 	data = loadData("D:\documents\Universiteit\DataVisualisation\doc\Obama\Obama_Speeches.csv")
 	stat_data =  statistics(data)
-	# print stat_data
+	print stat_data
 	# outputCsv(stat_data, "pairs_data.csv")
