@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>American Speech Visualisation</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="html.css"/>
+
+    <script src="d3.js"></script>
+    
+   <!--  <script src="main.js"></script> -->
+  	<script src="topojson.v1.min.js"></script>
+  	<script src="queue.js"></script>
+    <script src="draw_map.js"></script>
+
+  </head>
+
+  <body>
+  	<div id="header">
+  		header met Title
+  	</div>
+  	<div>
+	<button class="astext">Gemiddele woordlengte</button>
+	<button class="astext">Gemiddelde zinlengte</button>
+	<button class="astext">Graad van moeilijkheid</button>
+  	</div>
+  	<div id="up-holder">
+  	<svg class="up-graph" id="speech-graph">
+  		Graph met de Speeches
+  	</svg>
+  	<svg class="up-graph" id="pop-graph">
+  		Graph met de populariteit
+  	</svg>
+  </div>
+  <div id="text-block">
+  	Algemene informatiebox
+  </div>
+  <svg id="Map">
+  </svg>
+  <svg id="Map-graph">
+  </svg>
+  </body>
+</html>

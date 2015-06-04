@@ -22,7 +22,7 @@ def statistics(data):
 		word_len = get_average_word_len(a[3], len(words))
 		dif_index = get_dificulty_index(words)
 		temp = [sentence_len, word_len]
-		output.append([a[0], a[1], a[2], temp])
+		output.append([a[0], a[1], a[2], temp[0], temp[1]])
 	return output
 	# still need to add distance between words!
 
@@ -43,7 +43,6 @@ def get_dificulty_index(words):
 			total += 1
 		else:
 			d += 1
-	print total, d, total/d
 
 def get_average_sentence_len(text):
 	sentences = text.split(".")
@@ -65,10 +64,9 @@ def get_average_word_len(text, total_words):
 	return average
 
 def outputCsv(data, filename):
-	with open(filename, "w") as fout:
+	with open(filename, "wb") as fout:
 		writer = csv.writer(fout)
-		for row in data:
-			writer.writerow(row)
+		writer.writerows(data)
 
 def import_dictionary(filename):
 	with open(filename, "r") as fin:
@@ -80,8 +78,29 @@ def import_dictionary(filename):
 			b.add(str(w))
 		return b
 
+def changes_dates(data):
+	months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+	for i, d in enumerate(data):
+		date = d[1].split(" ")
+		if len(date) > 3:
+			continue
+		month = ""
+		for j in range(11):
+			if date[0] == months[j]:
+				if j < 10:
+					month = "0"+ str(j)
+				else:
+					month = str(j)
+		day = int(date[1][:-1])
+		if day < 10:
+			day = "0" + str(day)
+		else:
+			day = str(day)
+		data[i][1] = date[2] + "/" + month + "/" + day 
+	return data
 if __name__ == "__main__":
 	data = loadData("../../docs/Obama/Obama_Speeches.csv")
 	stat_data =  statistics(data)
-	# print stat_data
+	stat_data = changes_dates(stat_data)
+	# print repr(stat_data)
 	outputCsv(stat_data, "pairs_data.csv")
