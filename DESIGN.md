@@ -16,3 +16,6 @@ Voor externe bibliotheken wordt d3, queue en topojson gebruikt. queue en topojso
 
 ## Data
 De data is gescraped van deze [site](http://www.presidency.ucsb.edu/2008_election.php). Hier wordt gebruik van python gemaakt om de data binnen te halen en te analyseren. Via python wordt text omgezet in nummers deze nummers worden gebruikt als dataset. 
+
+## Schets 
+Hieronder staat een schets van hoe de visualistatie er ongeveer uit gaat zien. ![Schets](/docs/Images/Sketch.jpg)
