@@ -64,8 +64,10 @@ def get_average_word_len(text, total_words):
 	return average
 
 def outputCsv(data, filename):
+	firstrow = ["speeker", "date", "title", "sen", "word"]
 	with open(filename, "wb") as fout:
 		writer = csv.writer(fout)
+		writer.writerow(firstrow)
 		writer.writerows(data)
 
 def import_dictionary(filename):
@@ -87,11 +89,14 @@ def changes_dates(data):
 		month = ""
 		for j in range(11):
 			if date[0] == months[j]:
-				if j < 10:
-					month = "0"+ str(j)
+				num_month = j + 1
+				if num_month < 10:
+					month = "0"+ str(num_month)
 				else:
-					month = str(j)
-		day = int(date[1][:-1])
+					month = str(num_month)
+			if date[0] == "December":
+				month = "12"
+		day = int(date[1][:-1]) + 1
 		if day < 10:
 			day = "0" + str(day)
 		else:
@@ -99,8 +104,7 @@ def changes_dates(data):
 		data[i][1] = date[2] + "/" + month + "/" + day 
 	return data
 if __name__ == "__main__":
-	data = loadData("../../docs/Obama/Obama_Speeches.csv")
+	data = loadData("../../docs/Hillary/Hillary_Speeches.csv")
 	stat_data =  statistics(data)
 	stat_data = changes_dates(stat_data)
-	# print repr(stat_data)
-	outputCsv(stat_data, "pairs_data.csv")
+	outputCsv(stat_data, "../../docs/prepared_data/Hillary_data.csv")

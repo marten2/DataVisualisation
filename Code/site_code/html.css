@@ -10,14 +10,19 @@ body {
 	border-color:darkgrey;
 }
 svg {
-	background-color: red;
 	width: 700px;
 	height: 600px;
 	margin:0;
 }
-#speech-graph{
+
+/*.button{
+	width:100px;
+	height: 40px;
+}*/
+#pop-graph{
 	position: absolute;
 	left:810px;
+
 }
 #up-holder{
 	min-width: 1600px;
