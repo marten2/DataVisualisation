@@ -11,15 +11,23 @@ def loadData(filename):
 		return output
 
 def statistics(data):
+	'''does all statistics on the data and returns a list 
+		of data specification and statistics'''
 	output = []
 	for i, a in enumerate(data):
 		if i == 0:
 			continue
+		
+		# get rid of empty datasets
 		if a[3] == "":
 			continue
+		
+		# get total words 
 		words = get_words_list(a[3])
 		sentence_len = get_average_sentence_len(a[3])
 		word_len = get_average_word_len(a[3], len(words))
+		
+		# get the dificulty index
 		dif_index = get_dificulty_index(words)
 		temp = [sentence_len, word_len]
 		output.append([a[0], a[1], a[2], temp[0], temp[1]])
@@ -81,11 +89,19 @@ def import_dictionary(filename):
 		return b
 
 def changes_dates(data):
+	'''Chanes date type to readible type for d3'''
+	
 	months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 	for i, d in enumerate(data):
+		
+		# split into day, month, year seperatly
 		date = d[1].split(" ")
+		
+		# if date is incorrect leave the data
 		if len(date) > 3:
 			continue
+		
+		# get month
 		month = ""
 		for j in range(11):
 			if date[0] == months[j]:
@@ -96,15 +112,24 @@ def changes_dates(data):
 					month = str(num_month)
 			if date[0] == "December":
 				month = "12"
+		# get day
 		day = int(date[1][:-1]) + 1
 		if day < 10:
 			day = "0" + str(day)
 		else:
 			day = str(day)
+		
+		# build date in correct form
 		data[i][1] = date[2] + "/" + month + "/" + day 
+	return data
+
+def change_name(data):
+	for i, d in enumerate(data):
+		data[i] =d[0].split(" ")[1]
 	return data
 if __name__ == "__main__":
 	data = loadData("../../docs/Hillary/Hillary_Speeches.csv")
 	stat_data =  statistics(data)
 	stat_data = changes_dates(stat_data)
+	stat_data = change_name(stat_data)
 	outputCsv(stat_data, "../../docs/prepared_data/Hillary_data.csv")

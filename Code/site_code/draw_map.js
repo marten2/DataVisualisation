@@ -1,4 +1,4 @@
-window.onload = function() {
+function loadmap() {
 
 	// build queue to load in data
  	var q = queue(1);

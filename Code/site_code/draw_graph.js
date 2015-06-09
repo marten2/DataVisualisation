@@ -1,12 +1,17 @@
-function draw_graph(x_name, y_name, data, svg_selection){
+function draw_graph(x_name, y_name, data, svg_selection, colors){
+	// prepare holder for graph in the svg element
 	var margin = {left : 50, right: 10, top: 10, bottom: 40},
 		width = 700 - margin.left - margin.right,
 		height = 600 - margin.top - margin.bottom;
-	
 	var svg = d3.select(svg_selection);
+	
+	// remove old graph
 	svg.selectAll("*").remove();
+ 	
  	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 	
+ 	// initialise transformation from data to pixels
  	var xtrans = d3.time.scale()
  					.range([0, width]);
  	var ytrans = d3.scale.linear()
@@ -21,17 +26,19 @@ function draw_graph(x_name, y_name, data, svg_selection){
  	var yAxis = d3.svg.axis()
  					.scale(ytrans)
  					.orient("left");
+ 	
+ 	// get domain of all datasets together
  	domain_x = [Infinity, -Infinity]
  	domain_y = [Infinity, -Infinity]
  	for(i = 0; i < data.length; i++){
  		data[i].forEach(function(d){
- 			if (d[x_name].getTime > domain_x[1])
+ 			if (d[x_name].getTime() > domain_x[1])
  			{
- 				domain_x[1] = d[x_name]
+ 				domain_x[1] = d[x_name].getTime()
  			}
- 			else if (d[x_name].getTime < domain_x[0])
+ 			else if (d[x_name].getTime() < domain_x[0])
  			{
- 				domain_x[0] = d[x_name]
+ 				domain_x[0] = d[x_name].getTime()
  			}
 
 			if (d[y_name] > domain_y[1])
@@ -44,11 +51,15 @@ function draw_graph(x_name, y_name, data, svg_selection){
  			}
  		});
  	}
+ 	// transform domain into date domain
+ 	domain_x[0] = new Date(domain_x[0])
+ 	domain_x[1] = new Date(domain_x[1])
  	
- 	xtrans.domain(x_domain);
-	ytrans.domain(y_domain);
+ 	// initialise domain
+ 	xtrans.domain(domain_x);
+	ytrans.domain(domain_y);
 
-		// add x axis to svg
+	// add x axis to svg
 	svg.append("g")
 		.attr("class", "x-axis")
 		.attr("transform", "translate(0,"+ height +" )")
@@ -69,15 +80,20 @@ function draw_graph(x_name, y_name, data, svg_selection){
 			.attr("x", -120)
 			.attr("dy", 15)
 			.attr("transform", "rotate(-90)");
-	data.forEach(function(data){
-		var line = d3.svg.line()
+	
+	// prepare line generator
+	var line = d3.svg.line()
 	 				.x(function(d){return xtrans(d[x_name]);})
 	 				.y(function(d){return ytrans(d[y_name]);})
 
+	// build a line for every dataset
+	data.forEach(function(data ,i){
+		
 		// add data line to svg
 		svg.append("path")
 			.datum(data)
-			.attr("class", "line")
+			.style("stroke", colors[i])
+			.attr("class", "line " + data[0].speeker)
 			.attr("d", line);
 	});
 }

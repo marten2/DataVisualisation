@@ -14,6 +14,10 @@ svg {
 	height: 600px;
 	margin:0;
 }
+#check-box{
+	width:30px;
+	float:right;
+}
 
 /*.button{
 	width:100px;

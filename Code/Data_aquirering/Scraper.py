@@ -34,17 +34,21 @@ BASE_SITE = "http://www.presidency.ucsb.edu/2008_election_speeches.php?candidate
 BASE_URL = "http://www.presidency.ucsb.edu/" 
 
 def scrape_text(dom):
+	'''scrape the text on specific webpage'''
 	span = dom("span[class='displaytext']")
 	output = span[0].content
 	for e in span[0].parent("p"):
 		output += e.content
 	return output.split("<")[0]
+
 def scrape_data(dom):
+	'''scrape data from webpage, info about data and 
+		link to the text data. Initialise scraper of text data.'''
 	a = dom("table")
 	output = []
-	print len(a[7]("tr"))
-	for i, reff in enumerate(a[7]("tr")):
 
+
+	for i, reff in enumerate(a[7]("tr")):
 		if i == 0:
 			continue
 		row = reff("td")
@@ -57,7 +61,6 @@ def scrape_data(dom):
 	 	temp.append(scrape_text(dom))
 		output.append(temp)
 		print i
-
 	return output
 if __name__ == "__main__":
 	url = URL(BASE_SITE)
