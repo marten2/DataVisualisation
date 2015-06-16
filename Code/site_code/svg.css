@@ -3,3 +3,7 @@
   /*stroke: steelblue;*/
   stroke-width: 1.5px;
 }
+.axis{
+	fill: none;
+  	stroke: darkgray;
+}

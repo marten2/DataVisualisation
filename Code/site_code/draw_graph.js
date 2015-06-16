@@ -1,4 +1,4 @@
-function draw_graph(x_name, y_name, data, svg_selection, colors){
+function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 	// prepare holder for graph in the svg element
 	var margin = {left : 50, right: 10, top: 10, bottom: 40},
 		width = 700 - margin.left - margin.right,
@@ -61,7 +61,7 @@ function draw_graph(x_name, y_name, data, svg_selection, colors){
 
 	// add x axis to svg
 	svg.append("g")
-		.attr("class", "x-axis")
+		.attr("class", "x-axis axis")
 		.attr("transform", "translate(0,"+ height +" )")
 		.call(xAxis)
 		.append("text")
@@ -72,7 +72,7 @@ function draw_graph(x_name, y_name, data, svg_selection, colors){
 
 	// add y axis to svg
 	svg.append("g")
-		.attr("class", "y-axis")
+		.attr("class", "y-axis axis")
 		.call(yAxis)
 		.append("text")
 			.attr("class", "text")
@@ -88,11 +88,15 @@ function draw_graph(x_name, y_name, data, svg_selection, colors){
 
 	// build a line for every dataset
 	data.forEach(function(data ,i){
-		
-		// add data line to svg
+
 		svg.append("path")
 			.datum(data)
-			.style("stroke", colors[i])
+			.attr("class", function(d){return "line " + d[0].speeker;})
+			.style("stroke", function(d){
+				var box = d3.select(".checkbox."+d[0].speeker)
+				var color = box[0][0].checked ? colors[i] : "rgb(200, 200, 200)";
+				return color
+			})
 			.attr("class", "line " + data[0].speeker)
 			.attr("d", line);
 	});

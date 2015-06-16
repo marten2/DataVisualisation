@@ -125,11 +125,24 @@ def changes_dates(data):
 
 def change_name(data):
 	for i, d in enumerate(data):
-		data[i] =d[0].split(" ")[1]
+		data[i][0] =d[0].split(" ")[1]
+	return data
+
+def get_states(data):
+	states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+	a = 0
+	for i, d in enumerate(data):
+		words = d[2].split(" ")
+		for w in words:
+			if w in states:
+				data[i][2] = w
+				a +=1
+	print a
 	return data
 if __name__ == "__main__":
 	data = loadData("../../docs/Hillary/Hillary_Speeches.csv")
 	stat_data =  statistics(data)
 	stat_data = changes_dates(stat_data)
 	stat_data = change_name(stat_data)
+	stat_data = get_states(stat_data)
 	outputCsv(stat_data, "../../docs/prepared_data/Hillary_data.csv")
