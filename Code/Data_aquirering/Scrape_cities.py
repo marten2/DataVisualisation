@@ -1,6 +1,10 @@
 import csv, re, codecs, cStringIO
 from pattern.web import URL, DOM
 
+
+BASE_URL = "http://www.city-data.com/top1.html"
+
+
 class UnicodeWriter:
     def __init__(self, f, dialect=csv.excel, encoding="utf-8-sig", **kwds):
         self.queue = cStringIO.StringIO()
@@ -30,31 +34,22 @@ class UnicodeWriter:
         for row in rows:
             self.writerow(row)
 
-def scrape_data(dom):
-    table = dom("table")[0]
+def scrape_cities(dom):
+    table = dom("table")[1]
     output = []
-    for i, cell in enumerate(table("tr")):
-        if i == 0:
-            continue
-        td = cell("td")
-        temp_date = td[1]("small")[0].content.split("/")
-        print temp_date
-        try:
-            date = temp_date[0] + "/" + temp_date[1].split("-")[0] + "/20" + temp_date[2]
+    for tr in table("tr"):
+        try: 
+            output.append([tr("a")[0].content.split(",")[0], tr("a")[0].content.split(",")[1][1:]])
         except:
-            date = temp_date[0] + "/" + temp_date[1].split("-")[0] + "/20" + temp_date[1].split("-")[2] 
-        print date
-        Huckabee = td[4]("small")[0].content
-        McCain = td[5]("small")[0].content 
-        output.append([date, Huckabee, McCain])
+            continue
     return output
-if __name__ == '__main__':
-	BASE_URL = "http://www.pollster.com/polls/us/08-us-rep-pres-primary.html"
-	url = URL(BASE_URL)
-	html = url.download()
-	dom = DOM(html)
-	data = scrape_data(dom)
-	with open("../../docs/prepared_data/pres_rep_data.csv", "wb") as fout:
-		writer = UnicodeWriter(fout)
-		writer.writerow(["date", "Huckabee", "McCain"])
-		writer.writerows(data)
+
+if __name__ == "__main__":
+    url = URL(BASE_URL)
+    html = url.download()
+    dom = DOM(html)
+    cities_list = scrape_cities(dom)
+    print cities_list
+    with open("cities.csv", "wb") as fout:
+        writer = UnicodeWriter(fout)
+        writer.writerows(cities_list)

@@ -12,15 +12,15 @@ function loadmap(data, data_types, button_names, color_list) {
 
 function drawMap(data, map_data, data_types, button_names, color_list){
 	var mapData = map_data[0];
-	var stateData = map_data[1]
+	var stateData = map_data[1];
 	
 	// build svg element to hold map
-	var svg = d3.select("#Map")
+	var svg = d3.select("#Map");
 	
 	// initialise path builder
-	var path = d3.geo.path()
+	var path = d3.geo.path();
 
-	var display = data_types[3]
+	var display = data_types[3];
 
 	var state = "California";
 	// draw all landmaps one by one
@@ -28,24 +28,14 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 		.selectAll("input")
 		.data(button_names)
 		.enter().append("input")
-		.attr("class", function(d){return "checkbox " + d;})
-		.attr("type", "checkbox")
-		.attr("value", function(d){return d;})
-		.attr("checked", false)
-		.on("change", function(d, i){
-			var selected = this;
-			if(selected.checked === true)
-			{
-				d3.selectAll(".checkbox")
-					.attr("checked", function(){
-						if (this != selected){
-							this.checked = false;
-						}
-					});
+			.attr("class", function(d){return "btn btn-default btn-md selector2 " + d;})
+			.attr("type", "button")
+			.attr("value", function(d){return d;})
+			.on("click", function(d, i){
 				display = d
 				make_barchart(display, "speeker", data, "#Map-graph", state, color_list);
-			}
-		})
+		});
+
  	svg.selectAll(".land")
  		.data(topojson.feature(mapData, mapData.objects.states).features)
  		.enter().append("path")
@@ -59,15 +49,15 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 
  			})
  			.on("click", function(d){
- 				var state;
-
  				for (i = 0; i < stateData.length; i++) {
  					if (Number(d.id) === Number(stateData[i].id)){
  						state = stateData[i].name;
- 						break;		
+ 						make_barchart(display, "speeker", data, "#Map-graph", state, color_list);
+						break;		
  					}
  				}
- 				make_barchart(display, "speeker", data, "#Map-graph", state, color_list);
+ 				d3.selectAll("land").attr("fill", "red");
+ 				this.style.fill = "steelblue";
  			})
  			.attr("d", path)
 }

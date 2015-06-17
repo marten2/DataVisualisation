@@ -30,7 +30,7 @@ class UnicodeWriter:
         for row in rows:
             self.writerow(row)
 
-BASE_SITE = "http://www.presidency.ucsb.edu/2008_election_speeches.php?candidate=70&campaign=2008CLINTON&doctype=5000"
+BASE_SITE = "http://www.presidency.ucsb.edu/2008_election_speeches.php?candidate=68&campaign=2008MCCAIN&doctype=5000"
 BASE_URL = "http://www.presidency.ucsb.edu/" 
 
 def scrape_text(dom):
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	dom = DOM(html)
 	statements = scrape_data(dom)
 
-	with open("Hillary_speeches.csv", "wb") as fout:
+	with open("McCain_speeches.csv", "wb") as fout:
 		firstrow = ["Actor", "Date", "Title", "Speech"]
 		writer = UnicodeWriter(fout)
 		writer.writerow(firstrow)

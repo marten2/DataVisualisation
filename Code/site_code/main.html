@@ -3,43 +3,56 @@
   <head>
     <title>American Speech Visualisation</title>
     <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="External_Scripts/bootstrap.min.css">
+
     <link rel="stylesheet" type="text/css" href="html.css"/>
     <link rel="stylesheet" type="text/css" href="svg.css"/>
+  	
+    <!-- Load in external scripts -->
+    <script src="External_Scripts/queue.js"></script>
+    <script src="External_Scripts/topojson.v1.min.js"></script>
+    <script src="External_Scripts/d3.js"></script>
+    <script src="External_Scripts/jquery-1.11.3.min.js"></script>
+    <script src="External_Scripts/bootstrap.min.js"></script>
+    
+    <!-- Load in written scripts  -->
     <script src="draw_barchart.js"></script>
-    <script src="d3.js"></script>
     <script src="main2.js"></script>
     <script src="draw_graph.js"></script>
     <script src="main.js"></script>
-  	<script src="topojson.v1.min.js"></script>
-  	<script src="queue.js"></script>
     <script src="draw_map.js"></script>
     <script src="polls_data.js"></script>
   </head>
 
   <body>
-  	<div id="header">
-  		header met Title
+  	<div class="blog-masterhead" id="header">
+  		<div class="container">
+        <h3>
+          A visualisation of the speeches given in the US election of 2008
+        </h3>
+      </div>
   	</div>
-  	<div id="button-holder">
+  	<div id="button-holder" class="btn-group" role="group" aria-label="...">
   	</div>
   	<div id="up-holder">
-  	<svg class="up-graph" id="speech-graph">
-  		Graph met de Speeches
-  	</svg>
-    <div id="check-box">
-    </div>
-  	<svg class="up-graph" id="pop-graph">
-  		Graph met de populariteit
-  	</svg>
+      <svg class="up-graph" id="speech-graph">
+    	</svg>
+      <div id="check-box">
+      </div>
+    	<svg class="up-graph" id="pop-graph">
+    	</svg>
   </div>
   <div id="text-block">
   	Algemene informatiebox
   </div>
+<div id="lower-holder">
   <svg id="Map">
   </svg>
-  <div id="select-box">
+  <div id="select-box" class="btn-group" role="group" aria-label="...">
   </div>
   <svg id="Map-graph">
   </svg>
+</div>
   </body>
 </html>

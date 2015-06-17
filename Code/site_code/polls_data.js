@@ -1,11 +1,11 @@
-function loadpolls(){	
+function loadpolls(colors){	
 	q = queue(1);
 	q.defer(d3.csv, "../../docs/prepared_data/pres_dem_data.csv")
 	q.defer(d3.csv, "../../docs/prepared_data/pres_rep_data.csv")
 	q.defer(d3.csv, "../../docs/prepared_data/pres_pres_data.csv")
-	q.awaitAll(drawPollsGraph)
+	q.awaitAll(function(error, data){drawPollsGraph(data, colors)})
 }
-function drawPollsGraph(error, data){
+function drawPollsGraph(data, colors){
 	var parseDate = d3.time.format("%m/%d/%Y").parse,
 	keys = [],
 	sorted_data = new Object,
@@ -31,6 +31,7 @@ function drawPollsGraph(error, data){
 			else if (d[date].getTime() < min_date){min_date = d[date].getTime();}
 
 			for (k = 1; k < keys.length; k++){
+				if (d[keys[k]] === "-"){d[keys[k]] = 0}
 				d[keys[k]] = +d[keys[k]];
 				if (d[keys[k]] > max_rating) {max_rating = d[keys[k]];}
 				else if (d[keys[k]] < min_rating) {min_rating = d[keys[k]];}
@@ -43,6 +44,11 @@ function drawPollsGraph(error, data){
 		});
 	});
 
+	for (i = 1; i < keys.length; i++)
+	{
+		sorted_data[keys[i]].sort(function(a, b){return a[0].getTime() - b[0].getTime()})
+	}
+	
 	// prepare holder for graph in the svg element
 	var margin = {left : 50, right: 10, top: 10, bottom: 40},
 		width = 700 - margin.left - margin.right,
@@ -91,20 +97,18 @@ function drawPollsGraph(error, data){
 			.attr("x", -120)
 			.attr("dy", 15)
 			.attr("transform", "rotate(-90)");
+	
 	// prepare line generator
 	var line = d3.svg.line()
 	 				.x(function(d){return xtrans(d[0]);})
 	 				.y(function(d){return ytrans(d[1]);});
 
-	
-	console.log(sorted_data)
-	var color_list = ["",'rgb(228,26,28)','rgb(55,126,184)','rgb(77,175,74)','rgb(152,78,163)','rgb(255,127,0)','rgb(255,255,51)'];
 	for (i = 1; i < keys.length; i++)
 	{
 		svg.append("path")
 		.datum(sorted_data[keys[i]])
-		.attr("class", "line")
-		.style("stroke", color_list[i])
+		.attr("class", function(d){return "line " + keys[i]})
+		.style("stroke", colors[keys[i]])
 		.attr("d", line);
 	}
 }

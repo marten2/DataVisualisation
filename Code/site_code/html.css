@@ -1,37 +1,55 @@
 body {
+	min-width: 1600px;
     margin: 0;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 #header{
-	background-color:lightgray;
-	height: 40px;
+	background-color:#428bca;
 	margin: 0; 
 	border-bottom-style: solid;
 	border-width: 1px; 
 	border-color:darkgrey;
+	width: 100%;
+}
+#header h3{
+	font-weight: 500;
+	color: #fff;
+}
+/*.button{
+	margin-right: 5px;
+	margin-left: 5px;
+}*/
+#button-holder{
+	margin-left:10px;
+}
+.selector{
+	margin-left: 10;
+	left:0;
 }
 svg {
 	width: 700px;
 	height: 600px;
 	margin:0;
 }
-#check-box{
-	width:30px;
-	float:right;
-}
-
-/*.button{
+label{
 	width:100px;
-	height: 40px;
-}*/
-#pop-graph{
-	position: absolute;
-	left:810px;
-
+}
+#speech-graph{
+	display: inline-block;
+	float:left;
 }
 #up-holder{
 	min-width: 1600px;
 	margin:0;
 	height: 600px;
+}
+#pop-graph{
+	display: inline-block;
+	float:left;
+}
+#check-box{
+	display: inline-block;
+	float:left;
 }
 #text-block
 {
@@ -39,6 +57,16 @@ svg {
 	height: 70px;
 	margin: 0; 
 }
+#lower-holder{
+	min-width: 1600px;
+	margin:0;	
+}
 #Map{
 	width: 900px;
+	display: inline-block;
+	float: left;
+}
+#select-box{
+		display: inline-block;
+	float: left;
 }

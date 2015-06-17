@@ -1,4 +1,3 @@
-
 /* Loads data for statistics graph,
    then implements function to load graphs and 
    functionality in the page.*/
@@ -7,6 +6,9 @@ function loadgraph(){
 	var q = queue();
 	q.defer(d3.csv, "../../docs/prepared_data/Obama_data.csv");
 	q.defer(d3.csv, "../../docs/prepared_data/Hillary_data.csv");
+	q.defer(d3.csv, "../../docs/prepared_data/Edwards_data.csv");
+	q.defer(d3.csv, "../../docs/prepared_data/Huckabee_data.csv");
+	q.defer(d3.csv, "../../docs/prepared_data/McCain_data.csv");
 	q.awaitAll(makePage);
 } 
 function parse_data(data, data_types, date){
@@ -70,10 +72,12 @@ function makePage(error, data){
 
 	// initialise necassary for asigning data, colors and names
 	var presidents = []
+	var color_list = ['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)']
+	colors = {}
 	for (i = 0; i < data.length; i++){
-		presidents.push(data[i][0].speeker)
-	}
-	var color_list = ['rgb(228,26,28)','rgb(55,126,184)','rgb(77,175,74)','rgb(152,78,163)','rgb(255,127,0)','rgb(255,255,51)']
+		presidents.push(data[i][0].speeker);
+		colors[data[i][0].speeker] = color_list[i];
+	}	
 	
 	// get names from the data
 	var button_names = data_types.slice(3);
@@ -83,32 +87,37 @@ function makePage(error, data){
 		.selectAll("input")
 		.data(button_names)
 		.enter().append("input")
-			.attr("class", "button")
+			.attr("class", "button btn btn-default btn-lg")
 			.attr("type", "button")
 			.attr("value", function(d){return d})
 			.on("click", function(d){
 
 				// dislpay graph pertaining to specific dataset
-				draw_graph_statistics(date, d, average_data, "#speech-graph", color_list);
+				draw_graph_statistics(date, d, average_data, "#speech-graph", colors);
 			});
 
 	// build checkboxes for highlighting certain graphs 
 	d3.select("#check-box")
-		.selectAll("input")
+		.selectAll(".checkbox")
 		.data(presidents)
-		.enter().append("input")
-			.attr("class", function(d){return "checkbox " + d})
-			.attr("type", "checkbox")
-			.attr("value", function(d){return d;})
-			.attr("checked", true)
-			.on("change", function(d, i){
-				color = this.checked ? color_list[i] : "rgb(200, 200, 200)";
-				d3.selectAll(".line." + d)
-					.style("stroke", color) 
-			})			
+		.enter().append("div")
+			.attr("class", "checkbox")
+			.style("background-color", function(d){return colors[d];})
+				.append("label")
+				.text(function(d){return d})
+				.append("input")
+					.attr("class", function(d){return "selector " + d;})
+					.attr("type", "checkbox")
+					.attr("value", function(d){return d;})
+					.attr("checked", true)
+					.on("change", function(d, i){
+						color = this.checked ? colors[d] : "rgb(200, 200, 200)";
+						d3.selectAll(".line." + d)
+							.style("stroke", color) 
+					});			
 
 	// display graph of average sentence length
-	draw_graph_statistics(date, data_types[3], average_data, "#speech-graph", color_list);
-	loadmap(data, data_types, button_names, color_list);
-	loadpolls();
+	draw_graph_statistics(date, data_types[3], average_data, "#speech-graph", colors);
+	loadmap(data, data_types, button_names, colors);
+	loadpolls(colors);
 }

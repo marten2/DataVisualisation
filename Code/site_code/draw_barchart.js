@@ -25,7 +25,6 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
  			if (d[x_data] > max){max = d[x_data]}
  			if (d.title === state){
  				state_data[i].x = state_data[i].x + d[x_data];
- 				console.log(d[x_data], state_data[i].x, state_data[i].y);
  				j++;
  			}
  		});
@@ -44,9 +43,6 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 		.enter().append("g")
 			.attr("transform" , function(d, i){return"translate(0, " + i * barHeight + ")";});
 
-
-	console.log(bar)
-
 	bar.append("rect")
 		.attr("x", textSize)
 		.attr("width", function(d){
@@ -57,7 +53,7 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 				return "0px";
 			}})
 		.attr("height", barHeight - 1)
-		.style("fill", function(d, i){return colors[i];});
+		.style("fill", function(d, i){return colors[d.y];});
 
 	bar.append("text")
 		.attr("x", function(d) {

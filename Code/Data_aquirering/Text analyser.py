@@ -29,8 +29,7 @@ def statistics(data):
 		
 		# get the dificulty index
 		dif_index = get_dificulty_index(words)
-		temp = [sentence_len, word_len]
-		output.append([a[0], a[1], a[2], temp[0], temp[1]])
+		output.append([a[0], a[1], a[2], sentence_len, word_len, dif_index])
 	return output
 	# still need to add distance between words!
 
@@ -51,6 +50,7 @@ def get_dificulty_index(words):
 			total += 1
 		else:
 			d += 1
+	return d/total
 
 def get_average_sentence_len(text):
 	sentences = text.split(".")
@@ -72,7 +72,7 @@ def get_average_word_len(text, total_words):
 	return average
 
 def outputCsv(data, filename):
-	firstrow = ["speeker", "date", "title", "sen", "word"]
+	firstrow = ["speeker", "date", "title", "Average sentence lengt", "Average word lengt", "Diffaculty Index"]
 	with open(filename, "wb") as fout:
 		writer = csv.writer(fout)
 		writer.writerow(firstrow)
@@ -130,6 +130,7 @@ def change_name(data):
 
 def get_states(data):
 	states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+	cities_dict, cities_list = import_cities()
 	a = 0
 	for i, d in enumerate(data):
 		words = d[2].split(" ")
@@ -137,12 +138,33 @@ def get_states(data):
 			if w in states:
 				data[i][2] = w
 				a +=1
+				break
+			if w in cities_list:
+				data[i][2] = cities_dict[w]
+				a += 1
+				break
 	print a
 	return data
-if __name__ == "__main__":
-	data = loadData("../../docs/Hillary/Hillary_Speeches.csv")
+def import_cities():
+	with open("cities.csv", "rb") as fin:
+		cities = fin.readlines()
+		output_dict = {}
+		output_list = [] 
+		for line in cities:
+			temp = line.split(",")
+			output_list.append(temp[0])
+			output_dict[temp[0]] = temp[1]
+		return output_dict, output_list
+
+
+def get_stat_data(president):
+	data = loadData("../../docs/Speeches/" + president + "_Speeches.csv")
 	stat_data =  statistics(data)
 	stat_data = changes_dates(stat_data)
 	stat_data = change_name(stat_data)
 	stat_data = get_states(stat_data)
-	outputCsv(stat_data, "../../docs/prepared_data/Hillary_data.csv")
+	outputCsv(stat_data, "../../docs/prepared_data/" + president + "_data.csv")
+if __name__ == "__main__":
+	presidents = ["McCain", "Obama", "Hillary", "Huckabee", "Edwards"]
+	for president in presidents:
+		get_stat_data(president)

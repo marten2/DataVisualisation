@@ -1,7 +1,7 @@
 function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 	// prepare holder for graph in the svg element
-	var margin = {left : 50, right: 10, top: 10, bottom: 40},
-		width = 700 - margin.left - margin.right,
+	var margin = {left : 40, right: 10, top: 10, bottom: 40},
+		width = 650 - margin.left - margin.right,
 		height = 600 - margin.top - margin.bottom;
 	var svg = d3.select(svg_selection);
 	
@@ -77,7 +77,7 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 		.append("text")
 			.attr("class", "text")
 			.text(y_name)
-			.attr("x", -120)
+			.attr("x", -150)
 			.attr("dy", 15)
 			.attr("transform", "rotate(-90)");
 	
@@ -93,8 +93,8 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 			.datum(data)
 			.attr("class", function(d){return "line " + d[0].speeker;})
 			.style("stroke", function(d){
-				var box = d3.select(".checkbox."+d[0].speeker)
-				var color = box[0][0].checked ? colors[i] : "rgb(200, 200, 200)";
+				var box = d3.select(".selector." + d[0].speeker)
+				var color = box[0][0].checked ? colors[d[0].speeker] : "rgb(200, 200, 200)";
 				return color
 			})
 			.attr("class", "line " + data[0].speeker)
