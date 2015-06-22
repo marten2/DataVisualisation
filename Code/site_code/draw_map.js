@@ -56,8 +56,8 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 						break;		
  					}
  				}
- 				d3.selectAll("land").attr("fill", "red");
- 				this.style.fill = "steelblue";
+ 				d3.selectAll(".land").classed("selland", false)
+ 				d3.select(d3.event.target).classed("selland", true)
  			})
  			.attr("d", path)
 }

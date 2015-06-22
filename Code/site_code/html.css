@@ -26,10 +26,16 @@ body {
 	margin-left: 10;
 	left:0;
 }
+#up-holder svg{
+	width:1000px;
+}
 svg {
 	width: 700px;
 	height: 600px;
 	margin:0;
+}
+#check-box{
+	margin-left: 15px;
 }
 label{
 	width:100px;
@@ -39,9 +45,7 @@ label{
 	float:left;
 }
 #up-holder{
-	min-width: 1600px;
 	margin:0;
-	height: 600px;
 }
 #pop-graph{
 	display: inline-block;
@@ -52,6 +56,12 @@ label{
 	float:left;
 }
 #text-block
+{
+	background-color:lightgray;
+	height: 70px;
+	margin: 0; 
+}
+#info-middle
 {
 	background-color:lightgray;
 	height: 70px;

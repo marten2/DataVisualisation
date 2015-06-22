@@ -48,12 +48,18 @@ function drawPollsGraph(data, colors){
 	{
 		sorted_data[keys[i]].sort(function(a, b){return a[0].getTime() - b[0].getTime()})
 	}
-	
+
+	var svg = d3.select("#pop-graph");
+	svg_width = svg.style("width")
+					.match(/\d/g)
+					.join(""),
+	svg_height = svg.style("height")
+					.match(/\d/g)
+					.join("");
 	// prepare holder for graph in the svg element
-	var margin = {left : 50, right: 10, top: 10, bottom: 40},
-		width = 700 - margin.left - margin.right,
-		height = 600 - margin.top - margin.bottom;
-	var svg = d3.select("#pop-graph"); 	
+	var margin = {left : 40, right: 30, top: 10, bottom: 40},
+		width = svg_width - margin.left - margin.right,
+		height = svg_height - margin.top - margin.bottom; 	
  	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  	

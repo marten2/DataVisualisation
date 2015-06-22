@@ -1,9 +1,16 @@
 function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 	// prepare holder for graph in the svg element
-	var margin = {left : 40, right: 10, top: 10, bottom: 40},
-		width = 650 - margin.left - margin.right,
-		height = 600 - margin.top - margin.bottom;
-	var svg = d3.select(svg_selection);
+	var svg = d3.select(svg_selection),
+	svg_width = svg.style("width")
+					.match(/\d/g)
+					.join(""),
+	svg_height = svg.style("height")
+					.match(/\d/g)
+					.join("");
+	
+	var margin = {left : 40, right: 30, top: 10, bottom: 40},
+		width = svg_width - margin.left - margin.right,
+		height = svg_height - margin.top - margin.bottom;
 	
 	// remove old graph
 	svg.selectAll("*").remove();

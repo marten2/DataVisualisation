@@ -1,7 +1,5 @@
-speeker,date,title,Average sentence lengt,Average word lengt,Diffaculty Index
-McCain,2006/11/17,Speech to GOPAC,19.870646766169155,4.569103655483225,0.7178494623655914
-McCain,2006/11/17,Speech to the Federalist Society,24.185185185185187,4.629402756508423,0.7734926670287887
-McCain,2007/01/30,Remarks at the Dedication of the Center for the Intrepid,24.333333333333332,4.223744292237443,0.8771428571428571
+speeker,date,title,Average sentence length,Average word lengt,Diffaculty Index
+McCain,2007/01/19,Remarks at the Dedication of the Center for the Intrepid,24.333333333333332,4.223744292237443,0.8771428571428571
 McCain,2007/02/03,Remarks Before the U.S. Senate Committee on Homeland Security and Governmental Affairs,23.163265306122447,5.014096916299559,0.7119155354449472
 McCain,2007/02/03,Remarks in Support of the Federal Funding Accountability and Transparency Act,19.489795918367346,4.544502617801047,0.7427007299270073
 McCain,2007/03/15,"Remarks at the IAFF's Presidential Forum in Washington, DC",20.708955223880597,4.5174774774774775,0.7398119122257053

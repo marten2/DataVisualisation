@@ -9,7 +9,7 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 		.attr("y", margin.top/2)
 		.attr("x", margin.left)
 		.attr("dy", ".35em")
-		.text(state + " " + x_data)
+		.text(state + ", " + x_data)
 
 	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
