@@ -1,5 +1,5 @@
 body {
-	min-width: 1600px;
+
     margin: 0;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
@@ -15,6 +15,9 @@ body {
 	font-weight: 500;
 	color: #fff;
 }
+.container{
+	width: 100%;
+}
 /*.button{
 	margin-right: 5px;
 	margin-left: 5px;
@@ -28,6 +31,7 @@ body {
 }
 #up-holder svg{
 	width:1000px;
+	height: 400px;
 }
 svg {
 	width: 700px;
@@ -58,17 +62,18 @@ label{
 #text-block
 {
 	background-color:lightgray;
-	height: 70px;
 	margin: 0; 
+}
+#text-block div{
+	display:inline-block;
+	width: 100%;
 }
 #info-middle
 {
 	background-color:lightgray;
-	height: 70px;
 	margin: 0; 
 }
 #lower-holder{
-	min-width: 1600px;
 	margin:0;	
 }
 #Map{
@@ -79,4 +84,11 @@ label{
 #select-box{
 		display: inline-block;
 	float: left;
+}
+.no-pointer-event{
+	pointer-events:none;
+}
+#barchart-holder{
+	width:700px;
+	display: inline-block;
 }

@@ -1,5 +1,5 @@
 function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
-	// prepare holder for graph in the svg element
+	// get svg dimensions and graph dimensions
 	var svg = d3.select(svg_selection),
 	svg_width = svg.style("width")
 					.match(/\d/g)
@@ -15,6 +15,7 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 	// remove old graph
 	svg.selectAll("*").remove();
  	
+ 	// prepare graph holder
  	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  	
@@ -29,10 +30,12 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
  	var xAxis = d3.svg.axis()
  					.scale(xtrans)
  					.orient("bottom")
+ 	
  	// initialise y axis
  	var yAxis = d3.svg.axis()
  					.scale(ytrans)
  					.orient("left");
+ 	
  	
  	// get domain of all datasets together
  	domain_x = [Infinity, -Infinity]
@@ -58,9 +61,11 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
  			}
  		});
  	}
+ 	
  	// transform domain into date domain
  	domain_x[0] = new Date(domain_x[0])
  	domain_x[1] = new Date(domain_x[1])
+ 	console.log(domain_x)
  	
  	// initialise domain
  	xtrans.domain(domain_x);
@@ -89,22 +94,22 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 			.attr("transform", "rotate(-90)");
 	
 	// prepare line generator
-	var line = d3.svg.line()
+	var line = d3.svg.area()
 	 				.x(function(d){return xtrans(d[x_name]);})
 	 				.y(function(d){return ytrans(d[y_name]);})
-
+	 				.interpolate('step-after');
+	
 	// build a line for every dataset
 	data.forEach(function(data ,i){
-
 		svg.append("path")
 			.datum(data)
 			.attr("class", function(d){return "line " + d[0].speeker;})
 			.style("stroke", function(d){
+				// color is dependend if corresponding checkbox is checked or not
 				var box = d3.select(".selector." + d[0].speeker)
 				var color = box[0][0].checked ? colors[d[0].speeker] : "rgb(200, 200, 200)";
 				return color
 			})
-			.attr("class", "line " + data[0].speeker)
 			.attr("d", line);
 	});
 }

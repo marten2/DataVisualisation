@@ -18,7 +18,6 @@
     
     <!-- Load in written scripts  -->
     <script src="draw_barchart.js"></script>
-    <script src="main2.js"></script>
     <script src="draw_graph.js"></script>
     <script src="main.js"></script>
     <script src="draw_map.js"></script>
@@ -29,60 +28,111 @@
   	<div class="blog-masterhead" id="header">
   		<div class="container">
         <h3>
-          A visualisation of the speeches given in the US election of 2008
+          Een visualisatie van de toespraken gegeven tijdens de verkiezingen in de VN in 2008
         </h3>
       </div>
   	</div>
-      <div id="up-holder" class="container">
-    <div id="text-block" class="col-lg-3">
+    <div id="up-holder" class="container">
+      <div id="text-block" class="col-lg-3">
         <div class="container">
+          <h3>
+            Algemene informatie
+          </h3>
+          <p>
+            In 2008 vonden de verkiezingen voor een nieuwe president in Amercia plaats. Barack Obama won deze verkiezingen en werd de 44ste president van America. Tijdens deze verkiezingen streden verscheidende candidaten voor het presidentschap. Zij reisden over het gehele land om toespraken te geven en zo de mensen over te halen om voor hun te stemmen. Deze visualisatie probeert een inzicht te geven in een aantal eigenschappen van deze toespraken en hoe deze de populariteit van de kandidaten heeft beinvloed.
+          </p>
+          <p>
+            Informatie is een belangrijk deel van een toespraak, maar eigenlijk nog belangrijker is de manier waarop deze informatie wordt overgebracht. Alle kandidaten hebben hun eigen PR-team die de toespraken opstellen, zodat deze het best inspelen op de mensen waarvoor deze toespraken worden gegeven. Hierbij is het belangrijker dat de spreker kan connecten met het publiek dan dat hij zijn informatie overbrengt. Een goed voorbeeld hiervan uit de verkiezingen is de zin "Yes we can!" van Obama. 
+          </p>  
+          <p>
+            Voor deze visualisatie zijn de toespraken van vijf verschillende candidaten geanaliseerd. De toespraken zijn van deze <a href="http://www.presidency.ucsb.edu/2008_election.php">site</a> gescrapet en vervolgens geanalyseerd met python. De analyses die zijn gedaan zijn woord analyses geweest, waarbij de text is opgebroken in de worden apart en er statistieken met deze woorden zijn uitgevoert. De candidaten die hiervoor zijn uitgekozen zijn: Obama, McCain, Clinton, Edwards en Huckabee. De verschillende eigenschappen die zijn geanalyseerd worden later in diepgang besproken.
+          </p>
+          <p>
+            De grafieken op deze pagina geven respectievelijk de data verkregen uit de toespraken tegen de tijd en de polls tegenover de tijd weer. Via de selectie-boxen kunnen verschillende sprekers gehighlight worden en met de buttons kunnen verschillende datasets gekozen worden.  
+          </p>
         </div>
-    </div>
-    <div class="col-lg-9">
-      <div class="row-md">
-        <div class="container">
-          <div id="button-holder" class="btn-group" role="group" aria-label="...">
-        </div>
-        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="container">
+            <div id="button-holder" class="btn-group" role="group" aria-label="...">
+          </div>
+          </div>
 
-      </div>
-      <div class="row-md">
-        <div class="col-lg-2">
-            <div id="check-box">
+        </div>
+        <div class="row">
+          <div class="col-lg-10">
+            <div class="row">
+              <svg class="up-graph" id="speech-graph">
+            	</svg>
             </div>
-        </div>
-        <div class="col-lg-7">
-          <div class="row-md">
-            <svg class="up-graph" id="speech-graph">
-          	</svg>
+            <div class="row">
+            	<svg class="up-graph" id="pop-graph">
+            	</svg>
+            </div>
           </div>
-          <div class="row-md">
-          	<svg class="up-graph" id="pop-graph">
-          	</svg>
+          <div class="col-lg-2">
+              <div id="check-box">
+              </div>
           </div>
-        </div>
-      </div>  
-  </div>
-    
-  </div>
-<div id="info-middle">
-  jeey
-</div>
-<div id="lower-holder" class="container">
-  <div class="col-lg-8">
-    <svg id="Map">
-    </svg>
-  </div>
-  <div class="col-lg-4">
-    <div class="row-md"> 
-      <div id="select-box" class="btn-group" role="group" aria-label="...">
+        </div>  
       </div>
-     </div>
-    <div class="row-md">  
-      <svg id="Map-graph">
-      </svg>
     </div>
-  </div>
-</div>
+    <div id="info-middle">
+      <div class="container">
+        <div class="row-md">
+          <div class="col-md-3">
+            <h4>
+              Gemiddelde zinlengte
+            </h4>
+            <p>
+              De gemiddelde zinlengte is vrij voorzichzelfsprekend, het is de gemiddelde lengte van alle zinnen van een toespraak. Hiervoor is het totaal aantal woorden gedeeld door het totaal aantal zinnen van een toespraak gebruikt.
+            </p>
+          </div>
+          <div class="col-md-3">
+            <h4>
+              Gemiddelde woordlengte
+            </h4>
+            <p>
+              De gemiddelde woordlengte is vrij voorzichzelfsprekend, het is de gemiddelde lengte van alle woorden van een toespraak. Hiervoor is het totaal aantal characters gedeeld door het totaal aantal woorden van een toespraak gebruikt.
+            </p>
+          </div>
+          <div class="col-md-3">
+            <h4>
+              Graad van moeilijkheid
+            </h4>
+            <p>
+              Dit geeft een graaf van de moeilijkheid van een toespraak. Deze graad wordt bepaald door de woorden uit de toespraak te vergelijken met een algemeen simpel woordenboek van 850 <a href="http://www.manythings.org/vocabulary/lists/l/words.php?f=ogden">basiswoorden</a> die elke middelbarescholier van Engelse kommaf hoort te kennen. Hier wordt vervolgends de verhouding tussen het aantal woorden dat niet in de lijst zit tegenover wat wel in de lijst zit weergegeven.
+            </p>
+          </div>
+          <div class="col-md-3">
+            <h4>
+              Het percentage 'we'
+            </h4>
+            <p>
+              Het percentage 'we' geeft aan hoeveel van de woorden die gezegd woord in een toespraak het word 'we' is. Dit geeft dus het percentage van het aantal keer dat het woord 'we' wordt gebruikt.
+            </p>
+          </div>
+        </div>
+        <div class="row-md col-xs-12">
+          <h3>Data op locatie</h3>
+          <p>
+            Van een deel van de toespraken is ook de locatie waar deze gegeven zijn opgezocht. Dit is gedaan door in de titel behoordende bij deze toespraken te kijken of er een naam van een staat of stad stond. Deze naam is verbonden aan de desbetreffende staat in america. Jammer genoeg kon dit niet gebeuren voor alle toespraken omdat er geen plaats aangegeven stond. Van de verschillende toespraken op locatie is vervolgends per staat het gemiddelde genomen en dit wordt weergegeven in de landkaart hieronder. Door te klikken op een staat ontstaat er een barchart waar de data (als die er is) per president wordt weergegeven. Met de knoppen die boven de barchart staan kan weer genavigeerd worden tussen de verschillende data sets. Het totale bereik van de data waarop de barchart is gebaseerd is vastgesteld op de twee uiterste van de gehele geselecteerde dataset en niet op die per staat.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="lower-holder">
+      <div>
+        <svg id="Map">
+        </svg>
+      </div>
+      <div id="barchart-holder">
+        <div id="select-box" class="btn-group" role="group" aria-label="...">
+        </div>
+        <svg id="Map-graph">
+        </svg>
+      </div>
+    </div>
   </body>
 </html>

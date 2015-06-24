@@ -63,6 +63,7 @@ function drawPollsGraph(data, colors){
  	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  	
+ 	console.log(new Date(min_date), new Date(max_date))
  	// initialise transformation from data to pixels
  	var xtrans = d3.time.scale()
  					.range([0, width])

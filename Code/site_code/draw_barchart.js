@@ -1,35 +1,49 @@
 function make_barchart(x_data, y_data, data, svg_selection, state, colors){
-	var svg = d3.select(svg_selection)
-	var margin = {left : 50, right: 10, top: 40, bottom: 40},
-		width = 700 - margin.left - margin.right,
-		height = 600 - margin.top - margin.bottom;
+	
+	// get svg dimensions and barchart dimensions
+	var svg = d3.select(svg_selection),
+	svg_width = svg.style("width")
+					.match(/\d/g)
+					.join(""),
+	svg_height = svg.style("height")
+					.match(/\d/g)
+					.join("");
+	var margin = {left : 50, right: 30, top: 40, bottom: 40},
+		width = svg_width - margin.left - margin.right,
+		height = svg_height - margin.top - margin.bottom;
 
+	// clear svg
 	svg.selectAll("*").remove();
+
+	// add a title
 	svg.append("text")
 		.attr("y", margin.top/2)
 		.attr("x", margin.left)
 		.attr("dy", ".35em")
 		.text(state + ", " + x_data)
 
+	// ad barchart holder
 	svg = svg.append("g")
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  	
  	// initialise transformation from data to pixels
  	var state_data = []
  	var max = 0
+
+ 	// get averaged data per candidat for selected state, and selected data type
  	data.forEach(function(dataset, i){
- 		var j = 0
+ 		var total_speeches = 0
  		state_data[i] = new Object;
  		state_data[i].x = 0;
  		dataset.forEach(function(d){
  			if (d[x_data] > max){max = d[x_data]}
  			if (d.title === state){
  				state_data[i].x = state_data[i].x + d[x_data];
- 				j++;
+ 				total_speeches++;
  			}
  		});
  		state_data[i].y = dataset[0][y_data];
- 		state_data[i].x = state_data[i].x/j;
+ 		state_data[i].x = state_data[i].x/total_speeches;
  	});
 
 	var x = d3.scale.linear()
@@ -70,7 +84,7 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 			if (d.x){
 				return d.x.toFixed(1);
 			}
-			else{
+			else {
 				return "No data availible"
 			}
 		});
@@ -78,10 +92,4 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 		.attr("y", barHeight/2)
 		.attr("dy", ".35em")
 		.text(function(d){return d.y})
- 	// svg.selectAll("rect")
- 	// 	.data(state_data)
- 	// 	.enter().append("rect")
- 	// 		.style("height", "20px")
- 	// 		.style("width", function(d){ return String(x(d.x)) + "px";})
- 	// 		.text(function(d){return d.y});
 }

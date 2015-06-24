@@ -1,6 +1,7 @@
 from __future__ import division
 import string
 import csv
+import dateutil.parser as dateParser
 
 def loadData(filename):
 	with open(filename, "r") as fin:
@@ -22,16 +23,26 @@ def statistics(data):
 		if a[3] == "":
 			continue
 		
-		# get total words 
-		words = get_words_list(a[3])
-		sentence_len = get_average_sentence_len(a[3])
-		word_len = get_average_word_len(a[3], len(words))
-		
+		# get total words
+		text = a[3].lower() 
+		words = get_words_list(text)
+		sentence_len = get_average_sentence_len(text)
+		word_len = get_average_word_len(text, len(words))
+		we_average = get_we_average(text, len(words))
 		# get the dificulty index
 		dif_index = get_dificulty_index(words)
-		output.append([a[0], a[1], a[2], sentence_len, word_len, dif_index])
+		output.append([a[0], a[1], a[2], sentence_len, word_len, dif_index, we_average])
 	return output
 	# still need to add distance between words!
+
+def get_we_average(text, words):
+	sentences = text.split(".")
+	total_we = 0
+	for sentence in sentences:
+		for word in sentence.split(" "):
+			if word == "we" or word == "We":
+				total_we += 1
+	return total_we/words * 100
 
 def get_words_list(text):
 	lines = text.split(".")
@@ -50,7 +61,7 @@ def get_dificulty_index(words):
 			total += 1
 		else:
 			d += 1
-	return d/total
+	return total/d
 
 def get_average_sentence_len(text):
 	sentences = text.split(".")
@@ -72,7 +83,7 @@ def get_average_word_len(text, total_words):
 	return average
 
 def outputCsv(data, filename):
-	firstrow = ["speeker", "date", "title", "Average sentence length", "Average word lengt", "Diffaculty Index"]
+	firstrow = ["speeker", "date", "title", "Average sentence length", "Average word lengt", "Diffaculty Index", "Percentage of 'We'"]
 	with open(filename, "wb") as fout:
 		writer = csv.writer(fout)
 		writer.writerow(firstrow)
@@ -91,36 +102,8 @@ def import_dictionary(filename):
 def changes_dates(data):
 	'''Chanes date type to readible type for d3'''
 	
-	months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 	for i, d in enumerate(data):
-		
-		# split into day, month, year seperatly
-		date = d[1].split(" ")
-		
-		# if date is incorrect leave the data
-		if len(date) > 3:
-			continue
-		
-		# get month
-		month = ""
-		for j in range(11):
-			if date[0] == months[j]:
-				num_month = j + 1
-				if num_month < 10:
-					month = "0"+ str(num_month)
-				else:
-					month = str(num_month)
-			if date[0] == "December":
-				month = "12"
-		# get day
-		day = int(date[1][:-1]) + 1
-		if day < 10:
-			day = "0" + str(day)
-		else:
-			day = str(day)
-		
-		# build date in correct form
-		data[i][1] = date[2] + "/" + month + "/" + day 
+		data[i][1] = str(dateParser.parse(d[1])).split(" ")[0]
 	return data
 
 def change_name(data):
@@ -164,6 +147,7 @@ def get_stat_data(president):
 	stat_data = change_name(stat_data)
 	stat_data = get_states(stat_data)
 	outputCsv(stat_data, "../../docs/prepared_data/" + president + "_data.csv")
+
 if __name__ == "__main__":
 	presidents = ["McCain", "Obama", "Hillary", "Huckabee", "Edwards"]
 	for president in presidents:
