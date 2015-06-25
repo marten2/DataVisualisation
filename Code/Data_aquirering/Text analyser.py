@@ -95,7 +95,7 @@ def get_average_word_len(text, total_words):
 def outputCsv(data, filename):
 	'''Builds a output csv file, 
 	input is a list of lists with the data'''
-	firstrow = ["speeker", "date", "title", "Average sentence length", "Average word lengt", "Diffaculty Index", "Percentage of 'We'"]
+	firstrow = ["speeker", "Datum", "title", "Gemiddelde zinlengte", "Gemiddelde woordlengte", "Moeilijkheids graad", "Percentage 'We'"]
 	with open(filename, "wb") as fout:
 		writer = csv.writer(fout)
 		writer.writerow(firstrow)

@@ -5,7 +5,11 @@
 }
 .axis{
 	fill: none;
-  	stroke: darkgray;
+  	stroke: black;
+}
+.axis text{
+	fill:black;
+	stroke: none;
 }
 .land{
 	fill: lightgray;

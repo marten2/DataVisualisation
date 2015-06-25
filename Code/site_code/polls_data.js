@@ -69,7 +69,7 @@ function drawPollsGraph(data, colors){
 		});
 	});
 
-	// sort data on dates for goed continues line
+	// sort data on dates for good continuous line
 	for (i = 1; i < keys.length; i++)
 	{
 		sorted_data[keys[i]].sort(function(a, b){return a[0].getTime() - b[0].getTime()})
@@ -119,7 +119,7 @@ function drawPollsGraph(data, colors){
 		.call(xAxis)
 		.append("text")
 			.attr("class", "text")
-			.text("Date")
+			.text("Datum")
 			.attr("x", width - 100)
 			.attr("dy", - 10);
 
@@ -129,7 +129,7 @@ function drawPollsGraph(data, colors){
 		.call(yAxis)
 		.append("text")
 			.attr("class", "text")
-			.text("Ratings")
+			.text("Opiniepeiling")
 			.attr("x", -120)
 			.attr("dy", 15)
 			.attr("transform", "rotate(-90)");
