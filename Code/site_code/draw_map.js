@@ -32,7 +32,7 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 			.attr("type", "button")
 			.attr("value", function(d){return d;})
 			.on("click", function(d, i){
-				display = d
+				display = d;
 				make_barchart(display, "speeker", data, "#Map-graph", state, color_list);
 		});
 
@@ -51,6 +51,7 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 
  			})
  			.on("click", function(d){
+ 				
  				// find state name and drawbarchart dependen on state name
  				for (i = 0; i < stateData.length; i++) {
  					if (Number(d.id) === Number(stateData[i].id)){
@@ -59,9 +60,10 @@ function drawMap(data, map_data, data_types, button_names, color_list){
 						break;		
  					}
  				}
- 				// collor state sing selland class
+ 				
+ 				// collor state using selland class
  				d3.selectAll(".land").classed("selland", false)
  				d3.select(d3.event.target).classed("selland", true)
  			})
- 			.attr("d", path)
+ 			.attr("d", path);
 }

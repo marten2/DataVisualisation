@@ -31,6 +31,7 @@ class UnicodeWriter:
             self.writerow(row)
 
 def scrape_data(dom):
+    '''Scrape polls data from table, return list of lists with dates and polls per candidate'''
     table = dom("table")[0]
     output = []
     for i, cell in enumerate(table("tr")):

@@ -1,5 +1,7 @@
 function make_barchart(x_data, y_data, data, svg_selection, state, colors){
-	
+	/* Takes a data type to set on the x-axis an y-axis, aswel as a state. Builds
+	with this a barchart dependend on the data.*/
+
 	// get svg dimensions and barchart dimensions
 	var svg = d3.select(svg_selection),
 	svg_width = svg.style("width")
@@ -30,7 +32,7 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
  	var state_data = []
  	var max = 0
 
- 	// get averaged data per candidat for selected state, and selected data type
+ 	// get averaged data per candidat for selected state and selected data type
  	data.forEach(function(dataset, i){
  		var total_speeches = 0
  		state_data[i] = new Object;
@@ -45,18 +47,22 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
  		state_data[i].y = dataset[0][y_data];
  		state_data[i].x = state_data[i].x/total_speeches;
  	});
-
+ 	// get x transformation
 	var x = d3.scale.linear()
 		.domain([0, max])
 		.range([0, width]);
 
+	// initialise sizes of text
 	var textSize = 70;
 	var barHeight = 20;
+
+	// bind data to rects for barchart
 	var bar = svg.selectAll("g")
 		.data(state_data)
 		.enter().append("g")
 			.attr("transform" , function(d, i){return"translate(0, " + i * barHeight + ")";});
 
+	// build rect size dependend on data
 	bar.append("rect")
 		.attr("x", textSize)
 		.attr("width", function(d){
@@ -69,6 +75,7 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 		.attr("height", barHeight - 1)
 		.style("fill", function(d, i){return colors[d.y];});
 
+	// add text to every rect dependend on data
 	bar.append("text")
 		.attr("x", function(d) {
 			if (x(d.x)){
@@ -88,6 +95,8 @@ function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 				return "No data availible"
 			}
 		});
+
+	// add president name in front of rect 	
 	bar.append("text")
 		.attr("y", barHeight/2)
 		.attr("dy", ".35em")

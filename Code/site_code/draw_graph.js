@@ -20,12 +20,10 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
  			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  	
  	// initialise transformation from data to pixels
- 	var xtrans = d3.time.scale()
- 					.range([0, width]);
- 	var ytrans = d3.scale.linear()
- 					.range([height, 0]);
+ 	var xtrans = get_xTrans(x_name, data, width);
 
- 	
+ 	var ytrans = get_yTrans(y_name, data, height);
+
  	// initialise x axis
  	var xAxis = d3.svg.axis()
  					.scale(xtrans)
@@ -35,41 +33,6 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
  	var yAxis = d3.svg.axis()
  					.scale(ytrans)
  					.orient("left");
- 	
- 	
- 	// get domain of all datasets together
- 	domain_x = [Infinity, -Infinity]
- 	domain_y = [Infinity, -Infinity]
- 	for(i = 0; i < data.length; i++){
- 		data[i].forEach(function(d){
- 			if (d[x_name].getTime() > domain_x[1])
- 			{
- 				domain_x[1] = d[x_name].getTime()
- 			}
- 			else if (d[x_name].getTime() < domain_x[0])
- 			{
- 				domain_x[0] = d[x_name].getTime()
- 			}
-
-			if (d[y_name] > domain_y[1])
- 			{
- 				domain_y[1] = d[y_name]
- 			}
- 			else if (d[y_name] < domain_y[0])
- 			{
- 				domain_y[0] = d[y_name]
- 			}
- 		});
- 	}
- 	
- 	// transform domain into date domain
- 	domain_x[0] = new Date(domain_x[0])
- 	domain_x[1] = new Date(domain_x[1])
- 	console.log(domain_x)
- 	
- 	// initialise domain
- 	xtrans.domain(domain_x);
-	ytrans.domain(domain_y);
 
 	// add x axis to svg
 	svg.append("g")
@@ -93,23 +56,85 @@ function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 			.attr("dy", 15)
 			.attr("transform", "rotate(-90)");
 	
-	// prepare line generator
+	// prepare line generator, make it steplines
 	var line = d3.svg.area()
-	 				.x(function(d){return xtrans(d[x_name]);})
-	 				.y(function(d){return ytrans(d[y_name]);})
+	 				.x(function(l){return xtrans(l[x_name]);})
+	 				.y(function(l){return ytrans(l[y_name]);})
 	 				.interpolate('step-after');
 	
 	// build a line for every dataset
 	data.forEach(function(data ,i){
-		svg.append("path")
-			.datum(data)
-			.attr("class", function(d){return "line " + d[0].speeker;})
-			.style("stroke", function(d){
-				// color is dependend if corresponding checkbox is checked or not
-				var box = d3.select(".selector." + d[0].speeker)
-				var color = box[0][0].checked ? colors[d[0].speeker] : "rgb(200, 200, 200)";
-				return color
-			})
-			.attr("d", line);
+		var box = d3.select(".selector." + data[0].speeker),
+			checked = box[0][0].checked;
+		draw_line(checked, data, data[0].speeker, line, colors);
 	});
+}
+
+function draw_line(checked, data, pres, line, colors){
+	/*Draws line from data, with color if checkbox is checked without if not*/
+
+	// draw line colored and as highest if checked
+	if (checked)
+	{
+		d3.select("#speech-graph").select("g")
+			.append("path")
+			.datum(data)
+			.attr("class", "line " + pres)
+			.style("stroke", colors[pres])
+			.attr("d", line);
+	}
+	// draw line gray and as lowest lair if checked
+	else
+	{
+		d3.select("#speech-graph").select("g")
+			.insert("path", ":first-child")
+			.datum(data)
+			.attr("class", "line " + pres)
+			.style("stroke", "rgb(200, 200, 200)")
+			.attr("d", line);
+	}
+}
+
+function get_xTrans(x_name, data, width){
+	/* Determands transformation with given data */
+	 
+	 domain_x = [Infinity, -Infinity]
+	 for(i = 0; i < data.length; i++){
+ 		data[i].forEach(function(d){
+ 			if (d[x_name].getTime() > domain_x[1])
+ 			{
+ 				domain_x[1] = d[x_name].getTime()
+ 			}
+ 			else if (d[x_name].getTime() < domain_x[0])
+ 			{
+ 				domain_x[0] = d[x_name].getTime()
+ 			}
+ 		});
+ 	}
+ 	var xtrans = d3.time.scale()
+				.range([0, width])
+				.domain(domain_x);
+	return xtrans
+}
+function get_yTrans(y_name, data, height){
+	/* Determands transformation with given data */
+ 	
+ 	domain_y = [Infinity, -Infinity];
+
+ 	for(i = 0; i < data.length; i++){
+ 		data[i].forEach(function(d){
+			if (d[y_name] > domain_y[1])
+ 			{
+ 				domain_y[1] = d[y_name]
+ 			}
+ 			else if (d[y_name] < domain_y[0])
+ 			{
+ 				domain_y[0] = d[y_name]
+ 			}
+ 		});
+ 	}
+	var ytrans = d3.scale.linear()
+				.range([height, 0])
+				.domain(domain_y);
+ 	return ytrans;
 }

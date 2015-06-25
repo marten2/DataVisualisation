@@ -41,6 +41,14 @@ svg {
 #check-box{
 	margin-left: 15px;
 }
+.graphs-holder{
+	display: inline-block;
+	min-width: 1200px;
+}
+.graphs-holder .graphs{
+	width:1000px;
+	margin-right: 0px;
+}
 label{
 	width:100px;
 }
@@ -56,8 +64,9 @@ label{
 	float:left;
 }
 #check-box{
-	display: inline-block;
-	float:left;
+	position: absolute;
+	left: 1000px;
+	top: 45px;
 }
 #text-block
 {

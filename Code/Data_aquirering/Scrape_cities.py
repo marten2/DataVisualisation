@@ -35,6 +35,7 @@ class UnicodeWriter:
             self.writerow(row)
 
 def scrape_cities(dom):
+    '''Get cities from table on the website, return a list of cities and states'''
     table = dom("table")[1]
     output = []
     for tr in table("tr"):
