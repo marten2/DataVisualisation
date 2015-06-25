@@ -1,3 +1,5 @@
+"use strict";
+
 function make_barchart(x_data, y_data, data, svg_selection, state, colors){
 	/* Takes a data type to set on the x-axis an y-axis, aswel as a state. Builds
 	with this a barchart dependend on the data.*/

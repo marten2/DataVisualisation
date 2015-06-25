@@ -1,3 +1,5 @@
+"use strict";
+
 function draw_graph_statistics(x_name, y_name, data, svg_selection, colors){
 	// get svg dimensions and graph dimensions
 	var svg = d3.select(svg_selection),
@@ -98,8 +100,8 @@ function draw_line(checked, data, pres, line, colors){
 function get_xTrans(x_name, data, width){
 	/* Determands transformation with given data */
 	 
-	 domain_x = [Infinity, -Infinity]
-	 for(i = 0; i < data.length; i++){
+	 var domain_x = [Infinity, -Infinity];
+	 for(var i = 0; i < data.length; i++){
  		data[i].forEach(function(d){
  			if (d[x_name].getTime() > domain_x[1])
  			{
@@ -119,9 +121,9 @@ function get_xTrans(x_name, data, width){
 function get_yTrans(y_name, data, height){
 	/* Determands transformation with given data */
  	
- 	domain_y = [Infinity, -Infinity];
+ 	var domain_y = [Infinity, -Infinity];
 
- 	for(i = 0; i < data.length; i++){
+ 	for(var i = 0; i < data.length; i++){
  		data[i].forEach(function(d){
 			if (d[y_name] > domain_y[1])
  			{

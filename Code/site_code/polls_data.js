@@ -1,6 +1,8 @@
+"use strict";
+
 function loadpolls(colors){	
 	// load in data for polls graph
-	q = queue(1);
+	var q = queue(1);
 	q.defer(d3.csv, "../../docs/prepared_data/pres_dem_data.csv");
 	q.defer(d3.csv, "../../docs/prepared_data/pres_rep_data.csv");
 	q.defer(d3.csv, "../../docs/prepared_data/pres_pres_data.csv");
@@ -32,7 +34,7 @@ function drawPollsGraph(data, colors){
 		var date = keys[0];
 
 		// prepare list to fill for every key in object
-		for (j = 1; j < keys.length; j++)
+		for (var j = 1; j < keys.length; j++)
 		{
 			if(!sorted_data[keys[j]])
 			{
@@ -48,7 +50,7 @@ function drawPollsGraph(data, colors){
 			else if (d[date].getTime() < min_date){min_date = d[date].getTime();}
 
 			// parse polls data and save in right list of objecst
-			for (k = 1; k < keys.length; k++){
+			for (var k = 1; k < keys.length; k++){
 
 				// - in data equals 0 in numbers
 				if (d[keys[k]] === "-"){d[keys[k]] = 0}
@@ -70,19 +72,19 @@ function drawPollsGraph(data, colors){
 	});
 
 	// sort data on dates for good continuous line
-	for (i = 1; i < keys.length; i++)
+	for (var i = 1; i < keys.length; i++)
 	{
 		sorted_data[keys[i]].sort(function(a, b){return a[0].getTime() - b[0].getTime()})
 	}
 
 	// get svg dimensions and graph dimensions
-	var svg = d3.select("#pop-graph");
-	svg_width = svg.style("width")
-					.match(/\d/g)
-					.join(""),
-	svg_height = svg.style("height")
-					.match(/\d/g)
-					.join("");
+	var svg = d3.select("#pop-graph"),
+		svg_width = svg.style("width")
+						.match(/\d/g)
+						.join(""),
+		svg_height = svg.style("height")
+						.match(/\d/g)
+						.join("");
 
 	var margin = {left : 40, right: 30, top: 10, bottom: 40},
 		width = svg_width - margin.left - margin.right,
@@ -140,7 +142,7 @@ function drawPollsGraph(data, colors){
 	 				.y(function(d){return ytrans(d[1]);});
 	
 	// build line for every candidate, skipping first date key
-	for (i = 1; i < keys.length; i++)
+	for (var i = 1; i < keys.length; i++)
 	{
 		svg.append("path")
 		.datum(sorted_data[keys[i]])

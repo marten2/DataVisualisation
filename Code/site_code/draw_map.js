@@ -1,3 +1,5 @@
+"use strict";
+
 function loadmap(data, data_types, button_names, color_list) {
 	// build queue to load in data
  	var q = queue(1);
@@ -42,7 +44,7 @@ function drawMap(data, map_data, data_types, button_names, color_list){
  		.enter().append("path")
  			.attr("class", function(d){ 
  				// get specifick name of state using number id
- 				for (i = 0; i < stateData.length; i++) {
+ 				for (var i = 0; i < stateData.length; i++) {
  					if (Number(d.id) === Number(stateData[i].id)){
  						return "land " + stateData[i].name
  					}
@@ -53,7 +55,7 @@ function drawMap(data, map_data, data_types, button_names, color_list){
  			.on("click", function(d){
  				
  				// find state name and drawbarchart dependen on state name
- 				for (i = 0; i < stateData.length; i++) {
+ 				for (var i = 0; i < stateData.length; i++) {
  					if (Number(d.id) === Number(stateData[i].id)){
  						state = stateData[i].name;
  						make_barchart(display, "speeker", data, "#Map-graph", state, color_list);
