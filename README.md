@@ -2,7 +2,9 @@
 
 ## Introductie
 
-Dit project gaat over een woordanalyse van de toespraken van de americaanse verkiezingen van 2008. Algemen statistieken zoals woordlengte woorden vergeleken met populariteit van de running-mates. Hiervan is een visualisatie gemaakt, waarbij de verschillende kandidaten vergeleken kunnen worden. Ook wordt er een verband gelegd tussen de toespraken en de locatie waar die gegeven zijn. Dit is allemaal te zien in de visualisatie gebouwd in de index.html in de code folder. Het is een visualisatie voor het open domijn.
+Dit project gaat over een woordanalyse van de toespraken van de americaanse verkiezingen van 2008. Algemen statistieken zoals woordlengte woorden vergeleken met populariteit van de running-mates. Hiervan is een visualisatie gemaakt, waarbij de verschillende kandidaten vergeleken kunnen worden. Ook wordt er een verband gelegd tussen de toespraken en de locatie waar die gegeven zijn. Dit is allemaal te zien in de visualisatie gebouwd in de index.html in de code folder. Het is een visualisatie voor het open domijn. Een voorbeeld van de grafieken staat hieronder:
+
+
 
 ## De data
 De [data](http://www.presidency.ucsb.edu/2008_election.php) is hiervandaan gehaald. Hier stonden alle toespraken gegeven van de verschillende kandidaten gegeven tijdens de verkeizieng. Hieruit zijn de volgende statistieken gehaald":
