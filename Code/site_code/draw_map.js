@@ -3,8 +3,8 @@
 function loadmap(data, data_types, button_names, color_list) {
 	// build queue to load in data
  	var q = queue(1);
- 	q.defer(d3.json, "../../docs/lib/us.json");
- 	q.defer(d3.csv, "../../docs/lib/usstates.csv")
+ 	q.defer(d3.json, "../../docs/other_docs/us.json");
+ 	q.defer(d3.csv, "../../docs/other_docs/usstates.csv")
  	q.awaitAll(function(error, mapData){
  		drawMap(data, mapData, data_types, button_names, color_list);
  	});
