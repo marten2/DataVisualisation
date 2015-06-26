@@ -3,8 +3,8 @@
 ## Introductie
 
 Dit project gaat over een woordanalyse van de toespraken van de americaanse verkiezingen van 2008. Algemen statistieken zoals woordlengte woorden vergeleken met populariteit van de running-mates. Hiervan is een visualisatie gemaakt, waarbij de verschillende kandidaten vergeleken kunnen worden. Ook wordt er een verband gelegd tussen de toespraken en de locatie waar die gegeven zijn. Dit is allemaal te zien in de visualisatie gebouwd in de index.html in de code folder. Het is een visualisatie voor het open domijn. Een voorbeeld van de grafieken staat hieronder:
-![Grafiek1](/docs/other_docs/grafiek1.png)
-![Grafiek2](/docs/other_docs/grafiek2.png)
+![Grafiek1](/docs/other_docs/grafiek1.PNG)
+![Grafiek2](/docs/other_docs/grafiek2.PNG)
 
 
 ## De data
